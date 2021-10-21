@@ -1,0 +1,21 @@
+products:
+  - reference: 1
+    name: "Alice figure"
+    desc: "A beautiful figure of Alice to send encrypted messages!"
+    details: ""
+    price: 12.65
+    image: "alice_figure.jpg"
+
+  - reference: 2
+    name: "Bob figure"
+    desc: "A beautiful figure of Bob to receive encrypted messages!"
+    details: ""
+    price: 12.65
+    image: "bob_figure.jpg"
+  
+  - reference: 3
+    name: "Bob figure"
+    desc: "A beautiful figure of Bob to receive encrypted messages!"
+    details: ""
+    price: 12.65
+    image: "bob_figure.jpg"
