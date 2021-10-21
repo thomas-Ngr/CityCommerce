@@ -1,9 +1,11 @@
 <?php
-session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
+require_once $CLASSES_DIR . "order.php";
+session_start();
 require_once $FILTERS;
 require_once $CLASSES_DIR . "client.php";
-require_once $CLASSES_DIR . "order.php";
+require_once $CLASSES_DIR . "FileStorage.php";
+require_once $PRODUCTS_LIB;
 
 /*
  * CHECK USER INPUT
@@ -34,16 +36,11 @@ if (isset($_POST)) {
     foreach ($variables_names as $variable_name) {
         if ( ! $clean[$variable_name]) {
             $_SESSION['error'] = 'ERREUR : ' . $variable_name . ' is wrong or not set';
+            header('Location: ' . $VIEWS_DIR_URL . 'order.php?ref=' . $clean['product_ref'] );
         }
-        header('Location: ' . $VIEWS_DIR_URL . 'order.php?ref=' . $clean['product_ref'] );
+        
     }
 }
-
-/*
-echo "<pre>";
-var_dump($variables);
-echo "</pre>";
-*/
 
 /*
  * CREATE COMMAND
@@ -52,24 +49,18 @@ echo "</pre>";
  */
 
 $customer = new Customer (
-    $first_name . $name,
-    $name,
-    $first_name,
-    $address,
-    $email,
-    $phone
+    $clean['first_name'] . $clean['name'],
+    $clean['name'],
+    $clean['first_name'],
+    $clean['address'] . ' ' . $clean['postcode'] . ' ' . $clean['city'],
+    $clean['email'],
+    $clean['phone']
 );
 
-// get product information
-$products_data = yaml_parse_file($PRODUCTS_FILE)['products'];
-
-$product = new Product (
-    $product_ref,
-    $products_data[$product_ref]['name'],
-    $products_data[$product_ref]['desc'],
-    $products_data[$product_ref]['price'],
-    $products_data[$product_ref]['image']
-);
+$data = new FileStorage();
+$data->init();
+$product_info = $data->read('products', $clean['product_ref'] );
+$product = instanciate_product_from_info($product_info);
 
 $order = new Order (
     $customer,
@@ -77,17 +68,9 @@ $order = new Order (
 );
 
 /*
-echo "<pre>";
-var_dump($order);
-echo "</pre>";
-*/
-
-/*
  * SET THE ORDER AS A SESSION VARIABLE
  */
 
 $_SESSION['order'] = serialize($order);
 header('Location: ' . $VIEWS_DIR_URL . 'confirm.php');
-
-
 ?>

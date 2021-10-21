@@ -3,6 +3,7 @@ session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 require_once $FILTERS;
 require_once $PRODUCTS_LIB;
+require_once $CLASSES_DIR . 'FileStorage.php';
 
 /*
  * FILTER GET REQUEST
@@ -10,18 +11,19 @@ require_once $PRODUCTS_LIB;
 
 if (! empty($_GET['ref'])) {
     $ref = check_reference($_GET['ref']);
-    // should create an error if $ref is false
 }
 
-function sort_product($ref, $products_list) {
-    foreach ($products_list as $product) {
-        if ($product->getReference() === $ref){
-            return $product;
-        }
-    }
+$storage = new FileStorage();
+$storage->init();
+
+$product_info = $storage->read('products', $ref);
+// manage error if product is not found .
+if ( ! $product_info) {
+    $_SESSION['error'] = 'ERREUR : product with reference ' . $ref . ' has not been found.';
+    header('Location: ' . $VIEWS_DIR_URL );
 }
 
-$product = sort_product($ref, $products_list);
+$product = instanciate_product_from_info($product_info);
 
 ?>
 
@@ -53,10 +55,12 @@ $product = sort_product($ref, $products_list);
 
                 <?php if ( ! empty($_SESSION['error'])): ?>
                     <p class="error_message"><?= $_SESSION['error'] ;?></p>
-                <?php endif; ?>
+                <?php
+                    $_SESSION['error'] = '';
+                    endif;
+                ?>
 
-
-                <input type="hidden" name="product" value="2">
+                <input type="hidden" name="product" value="<?= $product->getId() ?>">
                 <div>
                     <label for="name">Name : </label>
                     <input id="name" name="name" type="text">

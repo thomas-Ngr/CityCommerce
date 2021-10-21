@@ -1,6 +1,8 @@
 <?php
-session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
+require_once $CLASSES_DIR . "order.php";
+session_start();
+
 
 $order = unserialize($_SESSION['order']);
 
@@ -15,19 +17,15 @@ $order = unserialize($_SESSION['order']);
     <?php include_once($PARTIALS_DIR . "header.php") ?>
     <main>
         <h2>Confirmation</h2>
-        <pre>
-            <?php gettype($order) ?>
-            <?php var_dump($order) ?>
-        </pre>
 
         <section>
             <p>Please verify your information before proceeding to payment. The product will be delivered to this address.</p>
             <p><span>Product</span><?= $order->product->name ?></p>
-            <p><span>Price</span>12.65</p>
-            <p><span>Name</span>John Lennon</p>
-            <p><span>Address</span>65 Abbey road, WC2N 5DU London </p>
-            <p><span>Email</span>j.lenon@beatles.co.uk</p>
-            <p><span>Phone</span>+44 79 75 777 666</p>
+            <p><span>Price</span><?= $order->product->getPrice() ?></p>
+            <p><span>Name</span><?= $order->customer->first_name . ' ' . $order->customer->name ?></p>
+            <p><span>Address</span><?= $order->customer->address ?></p>
+            <p><span>Email</span><?= $order->customer->email ?></p>
+            <p><span>Phone</span><?= $order->customer->phone_number ?></p>
             <div>
                 <a href="" class="btn">Confirm</a>
                 <a href="" class="btn">Dismiss</a>

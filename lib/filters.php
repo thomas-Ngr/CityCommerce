@@ -32,7 +32,7 @@ function check_reference ($reference) {
 }
 
 function check_address ($address) {
-	return ctype_print($address) ? $address : false;
+	return ( ( ! empty($address)) && ctype_print($address)) ? $address : false;
 }
 
 

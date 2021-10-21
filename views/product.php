@@ -8,16 +8,17 @@ if (! empty($_GET['ref'])) {
     // should create an error if $ref is false
 }
 
-function sort_product($ref, $products_list) {
-    foreach ($products_list as $product) {
-        if ($product->getReference() === $ref){
-            return $product;
-        }
-    }
+$storage = new FileStorage();
+$storage->init();
+
+$product_info = $storage->read('products', $ref);
+// manage error if product is not found .
+if ( ! $product_info) {
+    $_SESSION['error'] = 'ERREUR : product with reference ' . $ref . ' has not been found.';
+    header('Location: ' . $VIEWS_DIR_URL );
 }
 
-$product = sort_product($ref, $products_list);
-
+$product = instanciate_product_from_info($product_info);
 
 ?>
 
@@ -28,7 +29,7 @@ $product = sort_product($ref, $products_list);
 <body>
     <?php include_once($PARTIALS_DIR . "header.php") ?>
     <main>
-        <h2>Order</h2>
+        <h2>Product details</h2>
 
         <section class="product_card">
             <div class="product_card_image_container">
@@ -42,7 +43,7 @@ $product = sort_product($ref, $products_list);
             </p>
             <div class="product_card_row">
                 <p class="price"><?= $product->getPrice(); ?> Ğ1</p>
-                <a href="order.php?ref=<?= $product->getReference(); ?>" class="btn">Buy now !</a>
+                <a href="order.php?ref=<?= $product->getId(); ?>" class="btn">Buy now !</a>
             </div>
         </section>
 

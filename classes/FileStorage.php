@@ -1,32 +1,13 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $CLASSES_DIR . "product.php";
 
-require_once 'AbstractStorage.php';
-
-/*
-$products_data = yaml_parse_file($PRODUCTS_FILE)['products'];
-
-$products_list = createProductList($products_data);
-
-function createProductList($products_data) {
-    $products_list = [];
-    foreach ($products_data as $product) {
-        array_push($products_list, new Product(
-            $product['reference'],
-            $product['name'],
-            $product['desc'],
-            $product['price'],
-            $product['image']
-        ));
-    }
-    return $products_list;
-}
-*/
+require_once $CLASSES_DIR . 'product.php';
+require_once $CLASSES_DIR . 'AbstractStorage.php';
 
 class FileStorage extends AbstractStorage {
 
     public function init() {
+        global $PRODUCTS_FILE;
         $this->data = yaml_parse_file($PRODUCTS_FILE);
     }
 
@@ -36,7 +17,7 @@ class FileStorage extends AbstractStorage {
 
     public function read($table, $id) {
         foreach($this->data[$table] as $element) {
-            if ($element->id === $id) {
+            if ($element['id'] == $id) {
                 return $element;
             }
         }
@@ -44,29 +25,28 @@ class FileStorage extends AbstractStorage {
 
     public function create($table, $obj) {
         array_push($this->data[$table], $obj);
-        register($this->data);
+        $this->register();
     }
 
     public function delete($table, $id) {
         foreach($this->data[$table] as $pos => $element) {
-            if ($element->id === $id) {
+            if ($element['id'] === $id) {
                 array_splice($this->data[$table], $pos, 1);
             }
         }
-        register($this->data);
+        $this->register();
     }
 
     public function update($table, $id, $obj) {
         foreach($this->data[$table] as $pos => $element) {
-            if ($element->id === $id) {
+            if ($element['id'] === $id) {
                 array_replace($this->data[$table], [$pos => $obj]);
             }
         }
-        register($this->data);
+        $this->register();
     }
 
-    private function register($obj_list) {
+    private function register() {
         yaml_emit_file($PRODUCTS_FILE, $this->data, YAML_UTF8_ENCODING);
     }
-
 }

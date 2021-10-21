@@ -1,21 +1,32 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 require_once $CLASSES_DIR . "product.php";
+require_once $CLASSES_DIR . "FileStorage.php";
 
-$products_data = yaml_parse_file($PRODUCTS_FILE)['products'];
+$data = new FileStorage();
+$data->init();
 
-$products_list = createProductList($products_data);
+$products_list = getProductList();
 
-function createProductList($products_data) {
+function getProductList() {
+    global $data;
+    $products_data = $data->readAll('products');
+
     $products_list = [];
     foreach ($products_data as $product) {
-        array_push($products_list, new Product(
-            $product['reference'],
-            $product['name'],
-            $product['desc'],
-            $product['price'],
-            $product['image']
+        array_push($products_list, instanciate_product_from_info(
+            $product
         ));
     }
     return $products_list;
+}
+
+function instanciate_product_from_info($product_info) {
+    return new Product(
+        $product_info['id'],
+        $product_info['name'],
+        $product_info['desc'],
+        $product_info['price'],
+        $product_info['image'],
+    );
 }

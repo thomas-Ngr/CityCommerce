@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 require_once $FILTERS;
 
 class Product {
-    private string $reference;
+    private string $id;
     public string $name;
     public string $description;
     private float $price;
@@ -12,19 +12,19 @@ class Product {
     /* magic methods */
 
     function __construct(
-        string $reference,
+        string $id,
         string $name,
         string $description,
         float $price,
         string $image_file
     ) {
         global $NAME_MAX_LENGTH, $DESCRIPTION_MAX_LENGTH, $IMAGE_DIR;
-        // filter reference
+        // filter id
         // should create a regex
-        if ( ! check_word($reference, 10)) {
-            throw new Exception ("ERROR: " . $reference . " is not valid.");
+        if ( ! check_word($id, 10)) {
+            throw new Exception ("ERROR: " . $id . " is not valid.");
         }
-        $this->reference = $reference;
+        $this->id = $id;
 
         // filter name
         if ( ! (
@@ -60,8 +60,8 @@ class Product {
 
     /* getters, setters */
 
-    function getReference() {
-        return $this->reference;
+    function getId() {
+        return $this->id;
     }
 
     function getPrice() {

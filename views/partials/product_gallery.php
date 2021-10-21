@@ -1,9 +1,9 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-//require_once $CLASSES_DIR . "product.php";
+require_once $CLASSES_DIR . "product.php";
 require_once $PRODUCTS_LIB;
 
-// display product objects
+$products_list = getProductList();
 ?>
 <section class="product_gallery">
     <?php foreach($products_list as $product): ?>
@@ -15,8 +15,8 @@ require_once $PRODUCTS_LIB;
             <p><?= $product->description ?></p>
             <div class="product_card_row">
                 <p class="price"><?= $product->getPrice() ?> Ğ1</p>
-                <a href="product.php?ref=<?= $product->getReference() ?>" class="btn">Details</a>
-                <a href="order.php?ref=<?= $product->getReference() ?>" class="btn">Buy now !</a>
+                <a href="product.php?ref=<?= $product->getId() ?>" class="btn">Details</a>
+                <a href="order.php?ref=<?= $product->getId() ?>" class="btn">Buy now !</a>
             </div>
         </div>
     <?php endforeach ?>
