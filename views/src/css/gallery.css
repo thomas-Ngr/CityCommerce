@@ -14,7 +14,6 @@
     width: 30%;
     min-width: 250px;
     max-width: 400px;
-    margin: 20px;
     padding: 10px;
     border-radius: 10px;
     background-color: aliceblue;
@@ -22,10 +21,6 @@
 }
 
 .product_card_image_container {
-   /* min-height: 100px;
-    max-height: 40%;
-    min-width: 100px;
-    max-width: 50%;*/
     height: 100px;
     width: 100px;
     background-color: white;

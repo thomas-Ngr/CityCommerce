@@ -1,20 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $CLASSES_DIR . "product.php";
-
-$products_data = yaml_parse_file($PRODUCTS_FILE)['products'];
-
-// create product objects
-$products_list = [];
-foreach ($products_data as $product) {
-    array_push($products_list, new Product(
-        $product['reference'],
-        $product['name'],
-        $product['desc'],
-        $product['price'],
-        $product['image']
-    ));
-}
+//require_once $CLASSES_DIR . "product.php";
+require_once $PRODUCTS_LIB;
 
 // display product objects
 ?>
@@ -28,8 +15,8 @@ foreach ($products_data as $product) {
             <p><?= $product->description ?></p>
             <div class="product_card_row">
                 <p class="price"><?= $product->getPrice() ?> Ğ1</p>
-                <a href="product.php" class="btn">Details</a>
-                <a href="order.php" class="btn">Buy now !</a>
+                <a href="product.php?ref=<?= $product->getReference() ?>" class="btn">Details</a>
+                <a href="order.php?ref=<?= $product->getReference() ?>" class="btn">Buy now !</a>
             </div>
         </div>
     <?php endforeach ?>

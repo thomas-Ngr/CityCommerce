@@ -14,7 +14,9 @@ $ORDERS_CSV_FILE = $ROOT_SERVER . "orders/orders.csv"; // to be checked
 // LIBRARIES location
 $FILTERS = $ROOT_SERVER . "lib/filters.php";
 $UTILS = $ROOT_SERVER . "lib/utils.php";
+$PRODUCTS_LIB = $ROOT_SERVER . "lib/products.php";
 $CLASSES_DIR = $ROOT_SERVER . "classes/";
+$CONTROLLER_DIR = $ROOT_SERVER . "controllers/";
 
 $VIEWS_DIR = $ROOT_SERVER . "views/";
 $PARTIALS_DIR = $VIEWS_DIR . "partials/";
@@ -22,6 +24,9 @@ $SOURCE_DIR = $VIEWS_DIR . "src/";
 $IMAGE_DIR = $SOURCE_DIR . "img/";
 $CONTENT_DIR = $SOURCE_DIR . "markdown/";
 $PRODUCTS_FILE = $SOURCE_DIR . "products.yaml";
+
+$CONTROLLERS_LOCATION = $ROOT_URL . "controllers/";
+
 
 // string constants
 $NAME_MAX_LENGTH = 50;

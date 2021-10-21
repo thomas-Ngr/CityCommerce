@@ -1,5 +1,8 @@
 <?php
+session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
+
+$order = unserialize($_SESSION['order']);
 
 ?>
 
@@ -12,10 +15,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
     <?php include_once($PARTIALS_DIR . "header.php") ?>
     <main>
         <h2>Confirmation</h2>
+        <pre>
+            <?php gettype($order) ?>
+            <?php var_dump($order) ?>
+        </pre>
 
         <section>
             <p>Please verify your information before proceeding to payment. The product will be delivered to this address.</p>
-            <p><span>Product</span>Alice figure</p>
+            <p><span>Product</span><?= $order->product->name ?></p>
             <p><span>Price</span>12.65</p>
             <p><span>Name</span>John Lennon</p>
             <p><span>Address</span>65 Abbey road, WC2N 5DU London </p>

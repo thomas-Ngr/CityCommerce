@@ -1,5 +1,27 @@
 <?php
+session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
+require_once $FILTERS;
+require_once $PRODUCTS_LIB;
+
+/*
+ * FILTER GET REQUEST
+ */
+
+if (! empty($_GET['ref'])) {
+    $ref = check_reference($_GET['ref']);
+    // should create an error if $ref is false
+}
+
+function sort_product($ref, $products_list) {
+    foreach ($products_list as $product) {
+        if ($product->getReference() === $ref){
+            return $product;
+        }
+    }
+}
+
+$product = sort_product($ref, $products_list);
 
 ?>
 
@@ -16,18 +38,25 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 
         <section class="product_card">
             <div class="product_card_image_container">
-                <img src="<?= $IMAGE_DIR_URL ?>alice_figure.jpg">
+                <img src="<?= $IMAGE_DIR_URL . $product->image_file ?>">
             </div>
-            <h3>Alice figure</h3>
-            <p>A beautiful figure of Alice to send encrypted messages!</p>
+            <h3><?= $product->name ?></h3>
+            <p><?= $product->description ?></p>
             <div class="product_card_row">
-                <p class="price">12.65 Ğ1</p>
+                <p class="price"><?= $product->getPrice() ?> Ğ1</p>
             </div>
         </section>
 
         <section>
-            <form action="<?= $VIEWS_DIR_URL ?>confirm.php">
+            <form action="<?= $CONTROLLERS_LOCATION ?>CommandController.php" method="POST">
                 <h2>Your information</h1>
+
+                <?php if ( ! empty($_SESSION['error'])): ?>
+                    <p class="error_message"><?= $_SESSION['error'] ;?></p>
+                <?php endif; ?>
+
+
+                <input type="hidden" name="product" value="2">
                 <div>
                     <label for="name">Name : </label>
                     <input id="name" name="name" type="text">
@@ -62,10 +91,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
             </form>
 
         </section>
-
-
-
-
     </main>
 </body>
 </html>
