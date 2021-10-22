@@ -4,8 +4,8 @@ require_once $CLASSES_DIR . "order.php";
 session_start();
 require_once $FILTERS;
 require_once $CLASSES_DIR . "client.php";
-require_once $CLASSES_DIR . "YAMLFileStorage.php";
-require_once $PRODUCTS_LIB;
+require_once $MODELS_DIR . 'OrderModel.php';
+require_once $MODELS_DIR . 'ProductModel.php';
 
 /*
  * CHECK USER INPUT
@@ -56,16 +56,12 @@ $customer = new Customer (
     $clean['email'],
     $clean['phone']
 );
-
-$data = new FileStorage();
-$data->init();
-$product_info = $data->read('products', $clean['product_ref'] );
-$product = instanciate_product_from_info($product_info);
-
+$product = ProductModel::getProductById($clean['product_ref']);
 $order = new Order (
     $customer,
     $product
 );
+OrderModel::createOrder($order);
 
 /*
  * SET THE ORDER AS A SESSION VARIABLE

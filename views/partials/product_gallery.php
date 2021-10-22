@@ -1,9 +1,10 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $CLASSES_DIR . "product.php";
-require_once $PRODUCTS_LIB;
+//require_once $CLASSES_DIR . "product.php";
+require_once $MODELS_DIR . 'ProductModel.php';
+//require_once $PRODUCTS_LIB;
 
-$products_list = getProductList();
+$products_list = ProductModel::getAllProducts();
 ?>
 <section class="product_gallery">
     <?php foreach($products_list as $product): ?>

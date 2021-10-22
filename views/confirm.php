@@ -3,7 +3,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 require_once $CLASSES_DIR . "order.php";
 session_start();
 
-
 $order = unserialize($_SESSION['order']);
 
 ?>

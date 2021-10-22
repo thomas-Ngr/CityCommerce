@@ -1,24 +1,14 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 require_once $FILTERS;
-require_once $PRODUCTS_LIB;
+require_once $MODELS_DIR . 'ProductModel.php';
 
 if (! empty($_GET['ref'])) {
     $ref = check_reference($_GET['ref']);
     // should create an error if $ref is false
 }
 
-$storage = new FileStorage();
-$storage->init();
-
-$product_info = $storage->read('products', $ref);
-// manage error if product is not found .
-if ( ! $product_info) {
-    $_SESSION['error'] = 'ERREUR : product with reference ' . $ref . ' has not been found.';
-    header('Location: ' . $VIEWS_DIR_URL );
-}
-
-$product = instanciate_product_from_info($product_info);
+$product = ProductModel::getProductById($ref);
 
 ?>
 

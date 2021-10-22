@@ -28,7 +28,7 @@ function check_command_reference($reference) {
 }
 
 function check_reference ($reference) {
-	return ctype_digit($reference) ? $reference : false;
+	return ctype_alnum($reference) ? $reference : false;
 }
 
 function check_address ($address) {
