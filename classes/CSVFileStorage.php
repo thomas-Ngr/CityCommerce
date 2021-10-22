@@ -11,8 +11,14 @@ class FileStorage extends AbstractStorageCSV {
     private $data = [];
 
     public function __construct($table) {
-        $this->filename = "../data/" . $table;
-        $this->file = fopen($this->filename, "r+");
+        global $DATA_DIR;
+        $this->filename = $DATA_DIR . $table;
+        try {
+            $this->file = fopen($this->filename, "r+");
+        } catch (exception $e) {
+            die("File " . $table . " was not opened");
+        }
+        
     
         while ( ($row = fgetcsv($this->file) ) !== FALSE ) {
           array_push($this->data, $row);

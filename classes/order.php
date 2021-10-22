@@ -37,7 +37,6 @@ class Order {
     function cancel() {
         global $ORDER_STATUS_CANCELLED;
         $this->status = $ORDER_STATUS_CANCELLED;
-
     }
 
     function writeState () {
@@ -47,6 +46,26 @@ class Order {
 
     function getStatus () {
         return $this->status;
+    }
+
+    function setStatus ($status) {
+        $this->status = $status;
+    }
+
+    function getId() {
+        return $this->id;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function getTimestamp () {
+        return $this->timestamp;
+    }
+
+    function setTimestamp ($timestamp) {
+        $this->timestamp = $timestamp;
     }
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-abstract class StockageAbstract {
+abstract class AbstractStorageCSV {
   abstract public function __construct($table);
   abstract public function readAll();
   abstract public function readRow($row);
