@@ -3,7 +3,7 @@ session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 require_once $FILTERS;
 require_once $PRODUCTS_LIB;
-require_once $CLASSES_DIR . 'FileStorage.php';
+require_once $CLASSES_DIR . 'YAMLFileStorage.php';
 
 /*
  * FILTER GET REQUEST

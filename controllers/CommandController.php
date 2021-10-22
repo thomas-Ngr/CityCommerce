@@ -4,7 +4,7 @@ require_once $CLASSES_DIR . "order.php";
 session_start();
 require_once $FILTERS;
 require_once $CLASSES_DIR . "client.php";
-require_once $CLASSES_DIR . "FileStorage.php";
+require_once $CLASSES_DIR . "YAMLFileStorage.php";
 require_once $PRODUCTS_LIB;
 
 /*

@@ -1,7 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 require_once $CLASSES_DIR . "product.php";
-require_once $CLASSES_DIR . "FileStorage.php";
+require_once $CLASSES_DIR . "YAMLFileStorage.php";
 
 $data = new FileStorage();
 $data->init();
