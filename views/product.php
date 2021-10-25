@@ -1,36 +1,42 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $FILTERS;
-require_once $UTILS;
-require_once $MODELS_DIR . 'ProductModel.php';
+require_once 'lib/constants.php';
+require_once 'lib/filters.php';
+require_once 'lib/utils.php';
+require_once 'models/ProductModel.php';
 
-if (! empty($_GET['ref'])) {
-    $ref = check_reference($_GET['ref']);
+// GET ref is param in index router
+
+if (! empty($param)) {
+    $ref = check_reference($param);
 } 
-else if ( str_contains($_SERVER['HTTP_REFERER'], 'CityCommerce/views') ) {
+else if ( str_contains($_SERVER['HTTP_REFERER'], 'CityCommerce') ) {
     header('Location: ' . $_SERVER['HTTP_REFERER'] );
     die();
 } 
 else {
-    header('Location: ' . $VIEWS_DIR_URL);
+    header('Location: /CityCommerce');
     die();
 }
 
-
 $product = ProductModel::getProductById($ref);
+if ($product === false ) {
+    $_SESSION['error'] = 'ERREUR : Confirmation GET request is wrong or not set';
+    header('Location: /CityCommerce');
+    die();
+}
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include_once($PARTIALS_DIR . "head.html") ?>
-<link rel="stylesheet" href="src/css/main.css">
+<?php include_once('partials/head.html') ?>
+<link rel="stylesheet" href="views/src/css/main.css">
 <body>
-    <?php include_once($PARTIALS_DIR . "header.php") ?>
+    <?php include_once('partials/header.php') ?>
     <main>
         <h2>Product details</h2>
 
-        <?php include $PARTIALS_DIR . "errors_and_success.php"; ?>
+        <?php include 'partials/errors_and_success.php'; ?>
 
         <section class="product_card">
             <div class="product_card_image_container">
@@ -44,7 +50,7 @@ $product = ProductModel::getProductById($ref);
             </p>
             <div class="product_card_row">
                 <p class="price"><?= $product->getPrice(); ?> Ğ1</p>
-                <a href="order.php?ref=<?= $product->getId(); ?>" class="btn">Buy now !</a>
+                <a href="/CityCommerce/order/<?= $product->getId(); ?>" class="btn">Buy now !</a>
             </div>
         </section>
 

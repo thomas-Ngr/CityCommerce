@@ -4,12 +4,10 @@
 // HTML location
 $ROOT_URL = 'http://localhost/CityCommerce/';
 $VIEWS_DIR_URL = $ROOT_URL . "views/";
-$SOURCE_DIR_URL = $VIEWS_DIR_URL . "src/";
-$IMAGE_DIR_URL = $SOURCE_DIR_URL . "img/";
+$IMAGE_DIR_URL = $VIEWS_DIR_URL . "src/img/";
 
 // FILE location
 $ROOT_SERVER = $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/";
-$ORDERS_CSV_FILE = $ROOT_SERVER . "orders/orders.csv"; // to be checked
 $DATA_DIR = $ROOT_SERVER . 'data/';
 
 // LIBRARIES location

@@ -1,7 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $FILTERS;
-require_once $UTILS;
+require_once 'lib/filters.php';
+require_once 'lib/utils.php';
 
 class Customer {
     private $id;

@@ -1,5 +1,4 @@
 <?php
-require_once 'lib/constants.php';
 require_once 'models/ProductModel.php';
 
 $products_list = ProductModel::getAllProducts();
@@ -14,8 +13,8 @@ $products_list = ProductModel::getAllProducts();
             <p><?= $product->description ?></p>
             <div class="product_card_row">
                 <p class="price"><?= $product->getPrice() ?> Ğ1</p>
-                <a href="product.php?ref=<?= $product->getId() ?>" class="btn">Details</a>
-                <a href="order.php?ref=<?= $product->getId() ?>" class="btn">Buy now !</a>
+                <a href="/CityCommerce/product/<?= $product->getId() ?>" class="btn">Details</a>
+                <a href="/CityCommerce/order/<?= $product->getId() ?>" class="btn">Buy now !</a>
             </div>
         </div>
     <?php endforeach ?>

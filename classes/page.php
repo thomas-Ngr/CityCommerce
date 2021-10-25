@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $ROOT_SERVER . "vendors/parsedown.php";
+require_once 'lib/constants.php';
+require_once 'vendors/parsedown.php';
 
 class Page {
     public string $label;

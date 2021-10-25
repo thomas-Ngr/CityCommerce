@@ -1,11 +1,10 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $CLASSES_DIR . "order.php";
-session_start();
-require_once $FILTERS;
-require_once $CLASSES_DIR . "client.php";
-require_once $MODELS_DIR . 'OrderModel.php';
-require_once $MODELS_DIR . 'ProductModel.php';
+require_once 'lib/constants.php';
+require_once 'classes/order.php';
+require_once 'lib/filters.php';
+require_once 'classes/client.php';
+require_once 'models/OrderModel.php';
+require_once 'models/ProductModel.php';
 
 /*
  * CHECK USER INPUT
@@ -36,9 +35,7 @@ if (isset($_POST)) {
     foreach ($variables_names as $variable_name) {
         if ( ! $clean[$variable_name]) {
             $_SESSION['error'] = 'ERREUR : ' . $variable_name . ' is wrong or not set';
-
-            // should create an error when having a wrong product_ref,
-            // using HTTP_REQUEST['HTTP_REFERER']   
+ 
             if ( str_contains($_SERVER['HTTP_REFERER'], 'order') ) {
                 header('Location: ' . $_SERVER['HTTP_REFERER'] );
                 die();
@@ -49,8 +46,6 @@ if (isset($_POST)) {
         }
     }
 }
-
-
 
 /*
  * CREATE COMMAND
@@ -78,5 +73,5 @@ OrderModel::createOrder($order);
  */
 
 $_SESSION['order'] = $order->getId();
-header('Location: ' . $VIEWS_DIR_URL . 'confirm.php');
+header('Location: /CityCommerce/confirm/');
 ?>

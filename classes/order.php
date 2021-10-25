@@ -1,8 +1,8 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $UTILS;
-require_once $ROOT_SERVER . "classes/client.php";
-require_once $ROOT_SERVER . "classes/product.php";
+require_once 'lib/constants.php';
+require_once 'lib/utils.php';
+require_once 'classes/client.php';
+require_once 'classes/product.php';
 
 class Order {
     private string $id;
@@ -47,11 +47,7 @@ class Order {
     function getStatus () {
         return $this->status;
     }
-
-    function setStatus ($status) {
-        $this->status = $status;
-    }
-
+    
     function getId() {
         return $this->id;
     }

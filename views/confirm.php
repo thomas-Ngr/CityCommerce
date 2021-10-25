@@ -1,8 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $CLASSES_DIR . "order.php";
-session_start();
-require_once $MODELS_DIR . 'OrderModel.php';
+require_once 'classes/order.php';
+require_once 'models/OrderModel.php';
 
 $order = OrderModel::getOrder($_SESSION['order']);
 
@@ -10,15 +8,14 @@ $order = OrderModel::getOrder($_SESSION['order']);
 
 <!DOCTYPE html>
 <html lang="en">
-<?php include_once($PARTIALS_DIR . "head.html") ?>
-<link rel="stylesheet" href="src/css/main.css">
-<link rel="stylesheet" href="src/css/confirm.css">
+<?php include_once('partials/head.html') ?>
+<link rel="stylesheet" href="views/src/css/confirm.css">
 <body>
-    <?php include_once($PARTIALS_DIR . "header.php") ?>
+    <?php include_once('partials/header.php') ?>
     <main>
         <h2>Confirmation</h2>
 
-        <?php include $PARTIALS_DIR . "errors_and_success.php"; ?>
+        <?php include 'partials/errors_and_success.php'; ?>
 
         <section>
             <p>Please verify your information before proceeding to payment. The product will be delivered to this address.</p>

@@ -1,18 +1,15 @@
 <?php
-session_start();
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $FILTERS;
-require_once $UTILS;
-require_once $MODELS_DIR . 'ProductModel.php';
+require_once 'lib/constants.php';
+require_once 'lib/filters.php';
+require_once 'lib/utils.php';
+require_once 'models/ProductModel.php';
 
-/*
- * FILTER GET REQUEST
- */
+// GET ref is param in index router
 
-if (! empty($_GET['ref'])) {
-    $ref = check_reference($_GET['ref']);
+if (! empty($param)) {
+    $ref = check_reference($param);
 }
-else if ( str_contains($_SERVER['HTTP_REFERER'], 'CityCommerce/views') ) {
+else if ( str_contains($_SERVER['HTTP_REFERER'], 'CityCommerce/') ) {
     header('Location: ' . $_SERVER['HTTP_REFERER'] );
     die();
 }
@@ -48,7 +45,7 @@ $product = ProductModel::getProductById($ref);
         </section>
 
         <section>
-            <form action="<?= $CONTROLLERS_LOCATION ?>CommandController.php" method="POST">
+            <form action="/CityCommerce/controller/order" method="POST">
                 <h2>Your information</h1>
 
                 <?php include $PARTIALS_DIR . "errors_and_success.php"; ?>
