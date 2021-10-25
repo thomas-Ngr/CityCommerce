@@ -2,6 +2,7 @@
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 require_once $FILTERS;
+require_once $UTILS;
 require_once $MODELS_DIR . 'ProductModel.php';
 
 /*
@@ -10,6 +11,14 @@ require_once $MODELS_DIR . 'ProductModel.php';
 
 if (! empty($_GET['ref'])) {
     $ref = check_reference($_GET['ref']);
+}
+else if ( str_contains($_SERVER['HTTP_REFERER'], 'CityCommerce/views') ) {
+    header('Location: ' . $_SERVER['HTTP_REFERER'] );
+    die();
+}
+else {
+    header('Location: ' . $VIEWS_DIR_URL);
+    die();
 }
 
 $product = ProductModel::getProductById($ref);
@@ -42,12 +51,7 @@ $product = ProductModel::getProductById($ref);
             <form action="<?= $CONTROLLERS_LOCATION ?>CommandController.php" method="POST">
                 <h2>Your information</h1>
 
-                <?php if ( ! empty($_SESSION['error'])): ?>
-                    <p class="error_message"><?= $_SESSION['error'] ;?></p>
-                <?php
-                    $_SESSION['error'] = '';
-                    endif;
-                ?>
+                <?php include $PARTIALS_DIR . "errors_and_success.php"; ?>
 
                 <input type="hidden" name="product" value="<?= $product->getId() ?>">
                 <div>
@@ -79,7 +83,7 @@ $product = ProductModel::getProductById($ref);
                     <input id="phone" name="phone" type="text">
                 </div>
 
-                <input type="submit" value="Pay">
+                <input type="submit" value="Order">
 
             </form>
 

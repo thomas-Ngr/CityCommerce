@@ -1,8 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-//require_once $CLASSES_DIR . "product.php";
-require_once $MODELS_DIR . 'ProductModel.php';
-//require_once $PRODUCTS_LIB;
+require_once 'lib/constants.php';
+require_once 'models/ProductModel.php';
 
 $products_list = ProductModel::getAllProducts();
 ?>

@@ -1,12 +1,21 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 require_once $FILTERS;
+require_once $UTILS;
 require_once $MODELS_DIR . 'ProductModel.php';
 
 if (! empty($_GET['ref'])) {
     $ref = check_reference($_GET['ref']);
-    // should create an error if $ref is false
+} 
+else if ( str_contains($_SERVER['HTTP_REFERER'], 'CityCommerce/views') ) {
+    header('Location: ' . $_SERVER['HTTP_REFERER'] );
+    die();
+} 
+else {
+    header('Location: ' . $VIEWS_DIR_URL);
+    die();
 }
+
 
 $product = ProductModel::getProductById($ref);
 
@@ -20,6 +29,8 @@ $product = ProductModel::getProductById($ref);
     <?php include_once($PARTIALS_DIR . "header.php") ?>
     <main>
         <h2>Product details</h2>
+
+        <?php include $PARTIALS_DIR . "errors_and_success.php"; ?>
 
         <section class="product_card">
             <div class="product_card_image_container">

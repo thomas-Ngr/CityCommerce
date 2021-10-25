@@ -11,4 +11,8 @@ function generateRandomString($length = 10) {
     return $randomString;
 }
 
+function str_contains($haystack, $needle) {
+    return '' === $needle || false !== strpos($haystack, $needle);
+}
+
 ?>

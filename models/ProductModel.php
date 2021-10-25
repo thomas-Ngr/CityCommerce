@@ -1,7 +1,8 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $CLASSES_DIR . 'CSVFileStorage.php';
-require_once $CLASSES_DIR . 'product.php';
+//require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
+require_once 'lib/constants.php';
+require_once 'classes/CSVFileStorage.php';  //$CLASSES_DIR . 'CSVFileStorage.php';
+require_once 'classes/product.php'; //$CLASSES_DIR . 'product.php';
 
 class ProductModel {
 

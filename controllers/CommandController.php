@@ -31,16 +31,26 @@ if (isset($_POST)) {
         'postcode',
         'email',
         'phone',
-        'product_ref'
+        'product_ref',
     ];
     foreach ($variables_names as $variable_name) {
         if ( ! $clean[$variable_name]) {
             $_SESSION['error'] = 'ERREUR : ' . $variable_name . ' is wrong or not set';
-            header('Location: ' . $VIEWS_DIR_URL . 'order.php?ref=' . $clean['product_ref'] );
+
+            // should create an error when having a wrong product_ref,
+            // using HTTP_REQUEST['HTTP_REFERER']   
+            if ( str_contains($_SERVER['HTTP_REFERER'], 'order') ) {
+                header('Location: ' . $_SERVER['HTTP_REFERER'] );
+                die();
+            } else {
+                header('Location: ' . $VIEWS_DIR_URL);
+                die();
+            }
         }
-        
     }
 }
+
+
 
 /*
  * CREATE COMMAND
@@ -67,6 +77,6 @@ OrderModel::createOrder($order);
  * SET THE ORDER AS A SESSION VARIABLE
  */
 
-$_SESSION['order'] = serialize($order);
+$_SESSION['order'] = $order->getId();
 header('Location: ' . $VIEWS_DIR_URL . 'confirm.php');
 ?>

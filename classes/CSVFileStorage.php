@@ -1,8 +1,8 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
+require_once 'lib/constants.php';
 
-require_once $CLASSES_DIR . 'product.php';
-require_once $CLASSES_DIR . 'AbstractStorageCSV.php';
+require_once 'classes/product.php';
+require_once 'classes/AbstractStorageCSV.php';
 
 class FileStorage extends AbstractStorageCSV {
 
@@ -18,7 +18,6 @@ class FileStorage extends AbstractStorageCSV {
         } catch (exception $e) {
             die("File " . $table . " was not opened");
         }
-        
     
         while ( ($row = fgetcsv($this->file) ) !== FALSE ) {
           array_push($this->data, $row);

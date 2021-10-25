@@ -3,6 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
 require_once $CLASSES_DIR . 'CSVFileStorage.php';
 require_once $MODELS_DIR . 'ProductModel.php';
 require_once $CLASSES_DIR . 'client.php';
+require_once $CLASSES_DIR . 'order.php';
 
 class OrderModel {
 
@@ -34,10 +35,12 @@ class OrderModel {
         foreach($data as $pos => $row) {
             if ($row[0] === $id) {
                 $order = OrderModel::tableRowToOrder($row);
-                $order->setStatus(-1);
+                $order->cancel();
                 $storage->update($pos, OrderModel::orderToTable($order));
+                return true;
             }
         }
+        return false;
     }
 
     public static function payOrder($id) {
@@ -47,10 +50,12 @@ class OrderModel {
         foreach($data as $pos => $row) {
             if ($row[0] === $id) {
                 $order = OrderModel::tableRowToOrder($row);
-                $order->setStatus(1);
+                $order->pay();
                 $storage->update($pos, OrderModel::orderToTable($order));
+                return true;
             }
         }
+        return false;
     }
 
     private function orderToTable($order) {
