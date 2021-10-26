@@ -15,4 +15,15 @@ function str_contains($haystack, $needle) {
     return '' === $needle || false !== strpos($haystack, $needle);
 }
 
+function redirectToReferer($normal_referer_url, $fallback_url) {
+    if ( str_contains($_SERVER['HTTP_REFERER'], $normal_referer_url) ) {
+        header('Location: ' . $_SERVER['HTTP_REFERER'] );
+        die();
+    }
+    else {
+        header('Location: ' . $fallback_url);
+        die();
+    }
+}
+
 ?>

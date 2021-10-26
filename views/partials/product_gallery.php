@@ -7,7 +7,7 @@ $products_list = ProductModel::getAllProducts();
     <?php foreach($products_list as $product): ?>
         <div class="product_card">
             <div class="product_card_image_container">
-                <img src="<?= $IMAGE_DIR_URL . $product->image_file ?>">
+                <img src="views/src/img/<?= $product->image_file ?>">
             </div>
             <h3><?= $product->name ?></h3>
             <p><?= $product->description ?></p>

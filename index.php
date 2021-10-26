@@ -1,62 +1,59 @@
 <?php
 session_start();
 require_once 'lib/constants.php';
+require_once 'lib/utils.php';
 
 /*
  * ROUTER
  */
 
 $base_url = explode('?' , $_SERVER['REQUEST_URI'])[0];
-$exploded_base_url = explode('/', $base_url);
-$url_dir = $exploded_base_url[2];
+$base_url = rtrim($base_url, "/");
 
-switch($url_dir) {
-    case '':
-        include 'views/index.php';
-        break;
-    case 'product':
-        $param = ( ! empty ($exploded_base_url[3])) ? $exploded_base_url[3] : null;
-        include 'views/product.php';
-        break;
-    case 'order':
-        $param = ( ! empty ($exploded_base_url[3])) ? $exploded_base_url[3] : null;
-        include 'views/order.php';
-        break;
-    case 'confirm':
-        include 'views/confirm.php';
-        break;
+$routes = json_decode(file_get_contents('routes.json', 'r'), true);
+$routes = sortRoutesByURLLength($routes);
 
-    case 'controller':
-        $controller = ( ! empty ($exploded_base_url[3])) ? $exploded_base_url[3] : null;
-        $param = ( ! empty ($exploded_base_url[4])) ? $exploded_base_url[4] : null;
-        switch($controller) {
-            case 'order':
-                include 'controllers/CommandController.php';
-                break;
-            case 'product':
-                include 'controllers/ProductController.php';
-                break;
-        }
+foreach ($routes as $route) {
+    $url_match = str_contains($base_url, $route['url']);
+    $method_match = $route['method'] === $_SERVER['REQUEST_METHOD'];
+
+    if ( $url_match && $method_match ) {
+        $given_parameters = splitGivenParameters($base_url, $route);
+        $params = extract_parameters($given_parameters, $route['expected_parameters']);
+        include $route['file'];
+        break (1);
+    }
 }
 
+function splitGivenParameters($base_url, $route) {
+    if ($route['method'] === 'GET') {
+        $trimmed_parameters = ltrim($base_url, $route['url']);
+        if ($trimmed_parameters !== "") {
+            return explode( '/', $trimmed_parameters);
+        }
+    }
+    return [];
+}
 
+function sortRoutesByURLLength($routes) {
+    function longestRoute($a, $b) {
+        if(strlen($a['url']) == strlen($b['url'])) {
+            return 0 ;
+        }
+        return (strlen($a['url']) > strlen($b['url'])) ? -1 : 1;
+    }
+    usort($routes, 'longestRoute');
+    return $routes;
+}
 
-/*
-?>
+function extract_parameters($parameters, $expected_parameters) {
+    $params = [];
+    if (count($parameters) != count ($expected_parameters)) {
+        throw new Error('Error : number of parameters is wrong');
+    }
+    foreach ($expected_parameters as $pos => $key) {
+        $params[$key] = $parameters[$pos];
+    }
+    return $params;
+}
 
-<!DOCTYPE html>
-<html lang="en">
-<?php include_once('views/partials/head.html') ?>
-<link rel="stylesheet" href="views/src/css/gallery.css">
-<body>
-    <?php include_once('views/partials/header.php') ?>
-    <main>
-        <?php include_once('views/partials/errors_and_success.php') ?>
-
-        <h1>Produits</h1>
-        <?php include_once('views/partials/product_gallery.php') ?>
-    </main>
-</body>
-</html>
-
-<?php */ ?>

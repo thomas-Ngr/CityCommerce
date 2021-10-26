@@ -6,16 +6,10 @@ require_once 'models/ProductModel.php';
 
 // GET ref is param in index router
 
-if (! empty($param)) {
-    $ref = check_reference($param);
-} 
-else if ( str_contains($_SERVER['HTTP_REFERER'], 'CityCommerce') ) {
-    header('Location: ' . $_SERVER['HTTP_REFERER'] );
-    die();
-} 
-else {
-    header('Location: /CityCommerce');
-    die();
+if (! empty($params['ref'])) {
+    $ref = check_reference($params['ref']);
+} else {
+    redirect_to_referer('CityCommerce/', '/CityCommerce');
 }
 
 $product = ProductModel::getProductById($ref);

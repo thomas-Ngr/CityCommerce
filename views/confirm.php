@@ -9,7 +9,7 @@ $order = OrderModel::getOrder($_SESSION['order']);
 <!DOCTYPE html>
 <html lang="en">
 <?php include_once('partials/head.html') ?>
-<link rel="stylesheet" href="views/src/css/confirm.css">
+<link rel="stylesheet" href="/CityCommerce/views/src/css/confirm.css">
 <body>
     <?php include_once('partials/header.php') ?>
     <main>
@@ -26,14 +26,14 @@ $order = OrderModel::getOrder($_SESSION['order']);
             <p><span>Email</span><?= $order->customer->email ?></p>
             <p><span>Phone</span><?= $order->customer->phone_number ?></p>
             <div>
-                <a href="<?= $CONTROLLERS_LOCATION .'ConfirmCommandController.php?order=' . $order->getId() . '&action=confirm' ?>" class="btn">Confirm</a>
-                <a href="<?= $CONTROLLERS_LOCATION .'ConfirmCommandController.php?order=' . $order->getId() . '&action=confirm' ?>" class="btn">Dismiss</a>
+
+                <a href="/CityCommerce/controller/confirm/<?= $order->getId() ?>/confirm" class="btn">Confirm</a>
+                <a href="/CityCommerce/controller/confirm/<?= $order->getId() ?>/cancel" class="btn">Dismiss</a>
+
             </div>
             
-
         </section>
 
-        
     </main>
 </body>
 </html>

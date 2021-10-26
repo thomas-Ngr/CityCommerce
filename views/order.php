@@ -4,18 +4,10 @@ require_once 'lib/filters.php';
 require_once 'lib/utils.php';
 require_once 'models/ProductModel.php';
 
-// GET ref is param in index router
-
-if (! empty($param)) {
-    $ref = check_reference($param);
-}
-else if ( str_contains($_SERVER['HTTP_REFERER'], 'CityCommerce/') ) {
-    header('Location: ' . $_SERVER['HTTP_REFERER'] );
-    die();
-}
-else {
-    header('Location: ' . $VIEWS_DIR_URL);
-    die();
+if (! empty($params['ref'])) {
+    $ref = check_reference($params['ref']);
+} else {
+    redirect_to_referer('CityCommerce/', '/CityCommerce');
 }
 
 $product = ProductModel::getProductById($ref);
@@ -25,9 +17,8 @@ $product = ProductModel::getProductById($ref);
 <!DOCTYPE html>
 <html lang="en">
 <?php include_once($PARTIALS_DIR . "head.html") ?>
-<link rel="stylesheet" href="src/css/main.css">
-<link rel="stylesheet" href="src/css/gallery.css">
-<link rel="stylesheet" href="src/css/order.css">
+<link rel="stylesheet" href="/CityCommerce/views/src/css/gallery.css">
+<link rel="stylesheet" href="/CityCommerce/views/src/css/order.css">
 <body>
     <?php include_once($PARTIALS_DIR . "header.php") ?>
     <main>

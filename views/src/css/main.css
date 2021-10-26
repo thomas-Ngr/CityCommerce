@@ -82,3 +82,16 @@ color: white;
 position: relative;
 top: 2px;
 }
+
+.error_message {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: lightsalmon;
+    border : 2px solid red;
+}
+.success_message {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: lightgreen;
+    border: 2px solid green;
+}

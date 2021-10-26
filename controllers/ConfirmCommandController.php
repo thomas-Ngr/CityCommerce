@@ -1,24 +1,24 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $FILTERS;
-require_once $MODELS_DIR . 'OrderModel.php';
+require_once 'lib/constants.php';
+require_once 'lib/filters.php';
+require_once 'models/OrderModel.php';
 
 /*
  * FILTER REQUEST
  */
 
-if ( empty($_GET['order']) || empty($_GET['action'])) {
+if ( empty($params['order']) || empty($params['action'])) {
     $_SESSION['error'] = 'ERREUR : Confirmation GET request is wrong or not set';
-    header('Location: ' . $VIEWS_DIR_URL );
+    header('Location: /' );
 }
 
-$order_id = $_GET['order'];
+$order_id = $params['order'];
 
-if ($_GET['action'] === "cancel" || $_GET['action'] === "confirm") {
-    $action = $_GET['action'];
+if ($params['action'] === "cancel" || $params['action'] === "confirm") {
+    $action = $params['action'];
 } else {
     $_SESSION['error'] = 'ERREUR : Confirmation action value is wrong or not set';
-    header('Location: ' . $VIEWS_DIR_URL );
+    header('Location: /' );
 }
 
 /*
@@ -36,9 +36,8 @@ switch ($action) {
         break;
 }
 
-
 // should be a success
-$_SESSION['error'] = 'Confirmation : la commande a été confirmée.';
-header('Location: ' . $VIEWS_DIR_URL )
+$_SESSION['success'] = 'Confirmation : la commande a été confirmée.';
+header('Location: /CityCommerce' )
 
 ?>

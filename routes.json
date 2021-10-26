@@ -1,0 +1,38 @@
+[
+    {
+        "url": "/CityCommerce",
+        "file": "views/index.php",
+        "expected_parameters": [],
+        "method": "GET"
+    },
+    {
+        "url": "/CityCommerce/product",
+        "file": "views/product.php",
+        "expected_parameters": ["ref"],
+        "method": "GET"
+    },
+    {
+        "url": "/CityCommerce/order",
+        "file": "views/order.php",
+        "expected_parameters": ["ref"],
+        "method": "GET"
+    },
+    {
+        "url": "/CityCommerce/confirm",
+        "file": "views/confirm.php",
+        "expected_parameters": [],
+        "method": "GET"
+    },
+    {
+        "url": "/CityCommerce/controller/order",
+        "file": "controllers/CommandController.php",
+        "expected_parameters": [],
+        "method": "POST"
+    },
+    {
+        "url": "/CityCommerce/controller/confirm",
+        "file": "controllers/ConfirmCommandController.php",
+        "expected_parameters": ["order", "action"],
+        "method": "GET"
+    }
+]

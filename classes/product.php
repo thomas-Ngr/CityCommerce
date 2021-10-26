@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/CityCommerce/lib/constants.php";
-require_once $FILTERS;
+require_once 'lib/constants.php';
+require_once 'lib/filters.php';
 
 class Product {
     private string $id;
@@ -66,10 +66,6 @@ class Product {
 
     function getPrice() {
         return $this->price;
-    }
-
-    function setPrice(float $price) {
-
     }
 }
 ?>
