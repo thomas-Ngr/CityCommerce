@@ -25,10 +25,11 @@ $order = OrderModel::getOrder($_SESSION['order']);
             <p><span>Address</span><?= $order->customer->address ?></p>
             <p><span>Email</span><?= $order->customer->email ?></p>
             <p><span>Phone</span><?= $order->customer->phone_number ?></p>
+            <?= $_SESSION['order']; //debug ?>
             <div>
 
-                <a href="/CityCommerce/controller/confirm/<?= $order->getId() ?>/confirm" class="btn">Confirm</a>
-                <a href="/CityCommerce/controller/confirm/<?= $order->getId() ?>/cancel" class="btn">Dismiss</a>
+                <a href="/CityCommerce/controller/confirm/confirm" class="btn">Confirm</a>
+                <a href="/CityCommerce/controller/confirm/cancel" class="btn">Dismiss</a>
 
             </div>
             
