@@ -62,11 +62,12 @@ $customer = new Customer (
     $clean['phone']
 );
 $product = ProductModel::getProductById($clean['product_ref']);
+
 $order = new Order (
     $customer,
     $product
 );
-OrderModel::createOrder($order);
+OrderModel::create($order);
 
 /*
  * SET THE ORDER AS A SESSION VARIABLE

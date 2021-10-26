@@ -27,7 +27,8 @@ foreach ($routes as $route) {
 
 function splitGivenParameters($base_url, $route) {
     if ($route['method'] === 'GET') {
-        $trimmed_parameters = ltrim($base_url, $route['url']);
+        $trimmed_parameters = str_replace($route['url'] , '', $base_url);
+        $trimmed_parameters = ltrim($trimmed_parameters, '/');
         if ($trimmed_parameters !== "") {
             return explode( '/', $trimmed_parameters);
         }

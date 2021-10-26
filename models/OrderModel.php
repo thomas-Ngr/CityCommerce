@@ -21,14 +21,14 @@ class OrderModel {
         return false;
     }
 
-    public static function createOrder($order) {
+    public static function create($order) {
         $order_table = OrderModel::orderToTable($order);
 
         $storage = new FileStorage('orders.csv');
         $storage->create($order_table);
     }
 
-    public static function cancelOrder($id) {
+    public static function cancel($id) {
         $storage = new FileStorage('orders.csv');
         $data = $storage->readAll();
 
@@ -43,7 +43,7 @@ class OrderModel {
         return false;
     }
 
-    public static function payOrder($id) {
+    public static function pay($id) {
         $storage = new FileStorage('orders.csv');
         $data = $storage->readAll();
 
