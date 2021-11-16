@@ -39,6 +39,26 @@ class ProductModel {
         return false;
     }
 
+    public static function create($product) {
+        // should check that the product does not already exist
+
+        $storage = new FileStorage('products.csv');
+        $data = $storage->readAll();
+        foreach ($data as $row) {
+            if ($row[0] === $product->getId()) {
+                throw new Error('ERROR: product reference ' . $row[0] . ' is already used.' );
+            }
+        }
+        $product_row = [
+            $product->getId(),
+            $product->name,
+            $product->getPrice(),
+            $product->description,
+            '',
+            $product->image_file,
+        ];
+        $storage->create($product_row);
+    }
 }
 
 

@@ -34,5 +34,17 @@
         "file": "controllers/ConfirmCommandController.php",
         "expected_parameters": ["action"],
         "method": "GET"
+    },
+    {
+        "url": "/CityCommerce/admin/addProduct",
+        "file": "views/addProduct.php",
+        "expected_parameters": [],
+        "method": "GET"
+    },
+    {
+        "url": "/CityCommerce/admin/addProduct",
+        "file": "controllers/AddProduct.php",
+        "expected_parameters": [],
+        "method": "POST"
     }
 ]

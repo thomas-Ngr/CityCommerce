@@ -13,14 +13,14 @@ require_once 'models/ProductModel.php';
 if (isset($_POST)) {
 
     $clean = [];
-    $clean['name'] = check_word($_POST['name'], $NAME_MAX_LENGTH);
-    $clean['first_name'] = check_word($_POST['first_name'], $NAME_MAX_LENGTH);
-    $clean['address'] = check_address($_POST['address']);
-    $clean['city'] = check_word($_POST['city'], $NAME_MAX_LENGTH);
-    $clean['postcode'] = check_postcode($_POST['postcode']);
-    $clean['email'] = check_email($_POST['email']);
-    $clean['phone'] = check_phone($_POST['phone']);
-    $clean['product_ref'] = check_reference($_POST['product']);
+    $clean['name'] = htmlentities(check_word($_POST['name'], $NAME_MAX_LENGTH));
+    $clean['first_name'] = htmlentities(check_word($_POST['first_name'], $NAME_MAX_LENGTH));
+    $clean['address'] = htmlentities(check_address($_POST['address']));
+    $clean['city'] = htmlentities(check_word($_POST['city'], $NAME_MAX_LENGTH));
+    $clean['postcode'] = htmlentities(check_postcode($_POST['postcode']));
+    $clean['email'] = htmlentities(check_email($_POST['email']));
+    $clean['phone'] = htmlentities(check_phone($_POST['phone']));
+    $clean['product_ref'] = htmlentities(check_reference($_POST['product']));
 
     $variables_names = [
         'name',
@@ -35,14 +35,7 @@ if (isset($_POST)) {
     foreach ($variables_names as $variable_name) {
         if ( ! $clean[$variable_name]) {
             $_SESSION['error'] = 'ERREUR : ' . $variable_name . ' is wrong or not set';
- 
-            if ( str_contains($_SERVER['HTTP_REFERER'], 'order') ) {
-                header('Location: ' . $_SERVER['HTTP_REFERER'] );
-                die();
-            } else {
-                header('Location: ' . $VIEWS_DIR_URL);
-                die();
-            }
+            redirectToReferer('/CityCommerce/order', '/CityCommerce');
         }
     }
 }

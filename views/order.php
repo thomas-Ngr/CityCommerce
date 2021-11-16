@@ -20,7 +20,7 @@ $product = ProductModel::getProductById($ref);
 <link rel="stylesheet" href="/CityCommerce/views/src/css/gallery.css">
 <link rel="stylesheet" href="/CityCommerce/views/src/css/order.css">
 <body>
-    <?php include_once($PARTIALS_DIR . "header.php") ?>
+    <?php include_once 'views/partials/header.php' ?>
     <main>
         <h2>Order</h2>
 
@@ -39,7 +39,7 @@ $product = ProductModel::getProductById($ref);
             <form action="/CityCommerce/controller/order" method="POST">
                 <h2>Your information</h1>
 
-                <?php include $PARTIALS_DIR . "errors_and_success.php"; ?>
+                <?php include 'views/partials/errors_and_success.php'; ?>
 
                 <input type="hidden" name="product" value="<?= $product->getId() ?>">
                 <div>

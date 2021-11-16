@@ -21,7 +21,7 @@ foreach ($routes as $route) {
         $given_parameters = splitGivenParameters($base_url, $route);
         $params = extract_parameters($given_parameters, $route['expected_parameters']);
         include $route['file'];
-        break (1);
+        break;
     }
 }
 

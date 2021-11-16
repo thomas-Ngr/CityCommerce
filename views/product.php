@@ -4,8 +4,6 @@ require_once 'lib/filters.php';
 require_once 'lib/utils.php';
 require_once 'models/ProductModel.php';
 
-// GET ref is param in index router
-
 if (! empty($params['ref'])) {
     $ref = check_reference($params['ref']);
 } else {

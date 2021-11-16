@@ -16,7 +16,7 @@ class Order {
         Product $product,
         int $status = 0
     ) {
-        $this->id = uniqid('cmd_', true); //generateRandomString();
+        $this->id = uniqid('cmd_', true);
 
         $date = new DateTime();
         $this->timestamp = $date->getTimestamp();
@@ -29,9 +29,6 @@ class Order {
     function pay() {
         global $ORDER_STATUS_PAID;
         $this->status = $ORDER_STATUS_PAID;
-
-        // write order on the CSV sheet
-        //$this->writestate();
     }
 
     function cancel() {
